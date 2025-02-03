@@ -6,19 +6,34 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <title>Magik 0.1.0</title>
+    <title>Magik 0.2.0</title>
 </head>
 <body>
+
+    <section id="seccion-intro">
+        <section id="intro-contenido" class="oculto">
+            <h2 id="mensaje-intro"></h2>
+            <button id="boton-inicio" class="boton">Empezar</button>
+        </section>
+    </section>
+
+
     <header>
         <h1>Magik against the (under)world</h1>
-        <small>0.1.0</small>
+        <small>0.2.0</small>
     </header>
 
     <section class="pantalla">
         <section class="jugador personaje">
             <section>
                 <h2>Magik</h2>
-                <p id="vida-jugador">Null</p>
+
+                <section id="seccion-vida-jugador">
+                    <span>Vida</span>
+                    <span id="vida-jugador" class="vida-actual">5</span>
+                    <span> / </span>
+                    <span>100</span>
+                </section>
 
             </section>
 
@@ -39,20 +54,27 @@
 
 
 
-        <section class="enemigo personaje">
+        <section id="seccion-enemigo" class="enemigo personaje">
             <h2 id="nombre-enemigo">Null</h2>
-            <p id="vida-enemigo">Null</p>
 
+            <section id="seccion-vida-enemigo">
+                <span>Vida</span>
+                <span id="vida-enemigo" class="vida-actual">5</span>
+                <span> / </span>
+                <span id="vida-enemigo-total">null</span>
+            </section>
         </section>
         
     </section>
     <section id="seccion-mensaje" class="seccion-mensajes">
-        <h3 id="mensaje" class="mensaje">Null</h3>
+        <h3 id="mensaje" class="mensaje"></h3>
         <p id="mensaje-jugador"></p>
         <p id="mensaje-enemigo"></p>
 
-        <button id="boton-inicio" class="boton">Empezar</button>
+        <p id="mensaje-invicto">invictus</p>
+
+        <button id="boton-continuar" class="boton">Continuar</button>
     </section>
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
 </body>
 </html>
