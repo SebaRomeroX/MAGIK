@@ -334,7 +334,7 @@ function turnoConsecuencia(accion, valor) {
 
     //--------------------------------  VELOCIDAD TURNO --------------------------------------------------
 
-    setTimeout(evaluarVida, 200)
+    setTimeout(evaluarVida, 2000)
 }
 
 
