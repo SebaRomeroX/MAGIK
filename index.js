@@ -91,11 +91,17 @@ function preparar() {
 
 function empezar() {
 
+    //--------------------------------------  ELECCION OPONENTE-----------------------
+
     eleccionOponente = aleatorio(oponentes.length)
 
+    eleccionOponente = 4
+    
     const enemigoNombre = oponentes[eleccionOponente].nombre
     const enemigoImagen = oponentes[eleccionOponente].imgagen
     const enemigovidaTotal = oponentes[eleccionOponente].vida
+
+    //---------------
 
     seccionEnemigo.style.backgroundImage = `url('./img/${enemigoImagen}')`
 
@@ -160,7 +166,7 @@ function habilidad1() {
 
 function habilidad2() {
     const accion= 'magia'
-    const valor = 15
+    const valor = 10
 
     mensajeJugador.innerHTML = 'Jugador ataca con magia, no se puede bloqear'
     
@@ -326,7 +332,9 @@ function turnoConsecuencia(accion, valor) {
     vidaJugador.innerHTML= vidaJugadorActual
 
 
-    setTimeout(evaluarVida, 2000)
+    //--------------------------------  VELOCIDAD TURNO --------------------------------------------------
+
+    setTimeout(evaluarVida, 200)
 }
 
 
