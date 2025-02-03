@@ -10,6 +10,49 @@ body{
     color: aliceblue;
 }
 
+
+
+#seccion-intro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all .6s ease-out;
+
+}
+
+#intro-contenido {
+    text-align: center;
+    
+    transition: all 1.4s ease-out;
+
+}
+
+#mensaje-intro{
+    width: 70vw;
+    margin-bottom: 1em;
+}
+
+.oculto{
+    opacity: 0;
+    visibility: hidden;
+
+}
+
+.visible{
+    opacity: 1;
+    
+}
+
+
+
+
 header{
     display: flex;
     justify-content: center;
@@ -35,7 +78,7 @@ small{
 }
 
 .personaje{
-    padding: 1em;
+    padding: .4em 1em;
 }
 
 .jugador{
@@ -47,12 +90,20 @@ small{
     background-position: right; 
     background-repeat: no-repeat;
 
+    transition: filter .8s ease-out, opacity .1s ease;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
 
 }
+
+.vida-actual{
+    font-weight: 600;
+    font-size: 1.4em;
+}
+
 
 .habilidades{
     padding-top: 1em;
@@ -72,23 +123,40 @@ small{
     border-radius: .4em;
 }
 
+
 .enemigo{
     width: 50vw;
     height: 100%;
 
-    background-image: url('./img//g1.jpg'); 
+    
     background-size: auto 100%; 
     background-position: left; 
     background-repeat: no-repeat;
 
+    transition: filter .8s ease-out, opacity .1s ease;
 
     display: flex;
     flex-direction: column;
     align-items: end;
 }
 
+.filtro-rojo {
+    filter: brightness(0.5) sepia(1) hue-rotate(-50deg) saturate(5);
+    
+    transition: filter .1s ease;
+}
+
+.difuminado{
+    opacity: 0.4;
+
+    transition: opacity 3s ease;
+}
+
+
+
+
 h2{
-    margin: .4em 0;
+    margin-bottom: .4em;
 }
 
 .seccion-mensajes{
