@@ -46,12 +46,6 @@ let record = 0
 
 let eleccionOponente = 0
 
-window.addEventListener("orientationchange", function() {
-    if (window.orientation === 0 || window.orientation === 180) {
-        alert("Por favor, gira tu dispositivo para ver el contenido correctamente.");
-    }
-});
-
 window.addEventListener('load',preparar)
 
 //------------------------------------------------
@@ -100,7 +94,7 @@ function empezar() {
 
     eleccionOponente = aleatorio(oponentes.length)
 
-    // eleccionOponente = 4 
+    // eleccionOponente = 4
     
     const enemigoNombre = oponentes[eleccionOponente].nombre
     const enemigoImagen = oponentes[eleccionOponente].imgagen
@@ -195,7 +189,7 @@ function habilidad3() {
 
 function habilidad4() {
     const accion= 'ataque'
-    const valor = Math.floor(1200/vidaEnemigoActual) 
+    const valor = Math.floor(1500/vidaEnemigoActual) 
 
     mensajeJugador.innerHTML = 'Jugador ataca aprovechando debilidad'
     
