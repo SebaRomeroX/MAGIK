@@ -1,0 +1,24 @@
+nv 1 
+    lobo
+        estocada: ganamos siempre
+        magia: ganamos x4
+    murcielago
+        estocada: ganamos siempre
+        magia: ganamos x2
+    araña
+        estocada: ganamos siempre
+        magia: perdemos siempre
+
+
+nv 2
+    guerrero
+        estocada: perdemos x2
+        magia: empate
+        estrategia: ganamos x2
+
+
+nv 3
+    calaca
+        estocada: perdemos siempre
+        magia: perdemos x3
+        estrategia: empate
