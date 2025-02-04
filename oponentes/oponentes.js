@@ -1,68 +1,76 @@
+
+function generarAtaqueAleatorio(acciones) {
+    let listado = []
+
+    for (let i = 0; i < acciones.length; i++) {
+        for (let j = 0; j < acciones[i].chance; j++) {
+            listado.push(i);
+        }
+    }
+
+    let numRand = Math.floor(Math.random() * acciones.length)
+
+    let accion = acciones[numRand].accion
+    let valor = acciones[numRand].valor
+
+    return [ accion, valor ]
+}
+
 export const oponentes = [
     {
         nombre: "Guerrero desconocido",
         imgagen: 'guerrero_desconocido.jpg',
         vida: 100,
-        comportamiento: function() {
-            let accionEnemigo = 9
-            accionEnemigo = Math.floor(Math.random() * accionEnemigo)
+        comportamiento: function() {          
+            const acciones = [
+                {
+                    accion: 'ataque',
+                    valor: 35,
+                    chance: 3
+                },
+                {
+                    accion: 'esquive',
+                    valor: 1,
+                    chance: 3
+                },
+                {
+                    accion: 'bloqueo',
+                    valor: 15,
+                    chance: 2
+                },
+                {
+                    accion: 'espera',
+                    chance: 1
+                }
+            ]
 
-            let accion = ''
-            let valor = 0
-
-            switch (accionEnemigo) {
-                case 0:
-                case 1:
-                case 2:
-                    accion = 'ataque'
-                    valor = 35
-                    break;
-                case 3:
-                case 4:
-                case 5:
-                    accion = 'esquive'
-                    valor = 1
-                    break;
-                case 6:
-                case 7:
-                    accion = 'bloqueo'
-                    valor = 15
-                    break;
-                case 8:
-                    accion = 'espera'
-                break;
-            }            
-
-            return [ accion, valor ]
+            const [ accion, valor ] = generarAtaqueAleatorio(acciones)
+            return [ accion, valor ] 
         }
     },
     {
         nombre: "Wargo",
         imgagen: 'lobo.jpg',
         vida: 100,
-        comportamiento: function() {
-            let accionEnemigo = 5
-            accionEnemigo = Math.floor(Math.random() * accionEnemigo)
+        comportamiento: function() {      
+            const acciones = [
+                {
+                    accion: 'ataque',
+                    valor: 20,
+                    chance: 2
+                },
+                {
+                    accion: 'esquive',
+                    valor: 1,
+                    chance: 2
+                },
+                {
+                    accion: 'espera',
+                    chance: 1
+                }
+            ]
 
-            let accion = ''
-            let valor = 0
-
-            switch (accionEnemigo) {
-                case 0:
-                case 1:
-                    accion = 'ataque'
-                    valor = 20
-                    break;
-                case 2:
-                case 3:
-                    accion = 'esquive'
-                    valor = 1
-                    break;
-                case 4:
-                    accion = 'espera'
-                break;
-            }            
-
+            const [ accion, valor ] = generarAtaqueAleatorio(acciones)
             return [ accion, valor ]
         }
     },
@@ -71,24 +79,20 @@ export const oponentes = [
         imgagen: 'araña_gigante.jpg',
         vida: 130,
         comportamiento: function() {
-            let accionEnemigo = 3
-            accionEnemigo = Math.floor(Math.random() * accionEnemigo)
+            const acciones = [
+                {
+                    accion: 'ataque',
+                    valor: 15,
+                    chance: 2
+                },
+                {
+                    accion: 'esquive',
+                    valor: 1,
+                    chance: 1
+                }
+            ]
 
-            let accion = ''
-            let valor = 0
-
-            switch (accionEnemigo) {
-                case 0:
-                case 1:
-                    accion = 'ataque'
-                    valor = 15
-                    break;
-                case 2:
-                    accion = 'esquive'
-                    valor = 1
-                    break;
-            }            
-
+            const [ accion, valor ] = generarAtaqueAleatorio(acciones)         
             return [ accion, valor ]
         }
     },
@@ -97,29 +101,24 @@ export const oponentes = [
         imgagen: 'murcielago_mutante.jpg',
         vida: 70,
         comportamiento: function() {
-            let accionEnemigo = 6
-            accionEnemigo = Math.floor(Math.random() * accionEnemigo)
+            const acciones = [
+                {
+                    accion: 'ataque',
+                    valor: 20,
+                    chance: 3
+                },
+                {
+                    accion: 'esquive',
+                    valor: 1,
+                    chance: 2
+                },
+                {
+                    accion: 'espera',
+                    chance: 1
+                }
+            ]
 
-            let accion = ''
-            let valor = 0
-
-            switch (accionEnemigo) {
-                case 0:
-                case 1:
-                case 2:
-                    accion = 'ataque'
-                    valor = 20
-                    break;
-                case 3:
-                case 4:
-                    accion = 'esquive'
-                    valor = 1
-                    break;
-                case 5:
-                    accion = 'espera'
-                break;
-            }            
-
+            const [ accion, valor ] = generarAtaqueAleatorio(acciones)       
             return [ accion, valor ]
         }
     },
@@ -128,30 +127,25 @@ export const oponentes = [
         imgagen: 'la_calaca.png',
         vida: 120,
         comportamiento: function() {
-            let accionEnemigo = 6
-            accionEnemigo = Math.floor(Math.random() * accionEnemigo)
+            const acciones = [
+                {
+                    accion: 'ataque',
+                    valor: 35,
+                    chance: 2
+                },
+                {
+                    accion: 'esquive',
+                    valor: 1,
+                    chance: 2
+                },
+                {
+                    accion: 'bloqueo',
+                    valor: 15,
+                    chance: 2
+                }
+            ]
 
-            let accion = ''
-            let valor = 0
-
-            switch (accionEnemigo) {
-                case 0:
-                case 1:
-                    accion = 'ataque'
-                    valor = 35
-                    break;
-                case 2:
-                case 3:
-                    accion = 'esquive'
-                    valor = 1
-                    break;
-                case 4:
-                case 5:
-                    accion = 'bloqueo'
-                    valor = 15
-                    break;
-            }            
-
+            const [ accion, valor ] = generarAtaqueAleatorio(acciones)        
             return [ accion, valor ]
         }
     }
