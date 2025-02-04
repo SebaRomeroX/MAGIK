@@ -126,9 +126,9 @@ export const oponentes = [
     {
         nombre: "Figura Misteriosa",
         imgagen: 'la_calaca.png',
-        vida: 130,
+        vida: 120,
         comportamiento: function() {
-            let accionEnemigo = 7
+            let accionEnemigo = 6
             accionEnemigo = Math.floor(Math.random() * accionEnemigo)
 
             let accion = ''
@@ -137,17 +137,16 @@ export const oponentes = [
             switch (accionEnemigo) {
                 case 0:
                 case 1:
-                case 2:
                     accion = 'ataque'
                     valor = 35
                     break;
+                case 2:
                 case 3:
-                case 4:
                     accion = 'esquive'
                     valor = 1
                     break;
+                case 4:
                 case 5:
-                case 6:
                     accion = 'bloqueo'
                     valor = 15
                     break;
