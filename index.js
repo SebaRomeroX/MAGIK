@@ -46,6 +46,11 @@ let record = 0
 
 let eleccionOponente = 0
 
+window.addEventListener("orientationchange", function() {
+    if (window.orientation === 0 || window.orientation === 180) {
+        alert("Por favor, gira tu dispositivo para ver el contenido correctamente.");
+    }
+});
 
 window.addEventListener('load',preparar)
 
