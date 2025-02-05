@@ -148,5 +148,80 @@ export const oponentes = [
             const [ accion, valor ] = generarAtaqueAleatorio(acciones)        
             return [ accion, valor ]
         }
+    },
+    {
+        nombre: "Trasgo",
+        imgagen: 'trasgo.jpg',
+        vida: 90,
+        comportamiento: function() {          
+            const acciones = [
+                {
+                    accion: 'ataque',
+                    valor: 40,
+                    chance: 3
+                },
+                {
+                    accion: 'esquive',
+                    valor: 1,
+                    chance: 2
+                },
+                {
+                    accion: 'bloqueo',
+                    valor: 10,
+                    chance: 1
+                }
+            ]
+
+            const [ accion, valor ] = generarAtaqueAleatorio(acciones)
+            return [ accion, valor ] 
+        }
+    },
+    {
+        nombre: "Lican",
+        imgagen: 'lican.jpg',
+        vida: 120,
+        comportamiento: function() {      
+            const acciones = [
+                {
+                    accion: 'ataque',
+                    valor: 20,
+                    chance: 2
+                },
+                {
+                    accion: 'esquive',
+                    valor: 1,
+                    chance: 2
+                }
+            ]
+
+            const [ accion, valor ] = generarAtaqueAleatorio(acciones)
+            return [ accion, valor ]
+        }
+    },
+    {
+        nombre: "Golem",
+        imgagen: 'golem.jpg',
+        vida: 140,
+        comportamiento: function() {          
+            const acciones = [
+                {
+                    accion: 'ataque',
+                    valor: 35,
+                    chance: 3
+                },
+                {
+                    accion: 'bloqueo',
+                    valor: 15,
+                    chance: 2
+                },
+                {
+                    accion: 'espera',
+                    chance: 1
+                }
+            ]
+
+            const [ accion, valor ] = generarAtaqueAleatorio(acciones)
+            return [ accion, valor ] 
+        }
     }
 ]
