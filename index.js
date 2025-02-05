@@ -12,6 +12,7 @@ const mensajeInvicto = document.getElementById('mensaje-invicto')
 const seccionIntro = document.getElementById('seccion-intro')
 const introContenido = document.getElementById('intro-contenido')
 
+const seccionTutorial = document.getElementById('seccion-tutorial')
 
 const seccionVidaEnemigo = document.getElementById('seccion-vida-enemigo')
 const vidaEnemigo = document.getElementById('vida-enemigo')
@@ -34,6 +35,8 @@ boton2.addEventListener('click', habilidad2)
 boton3.addEventListener('click', habilidad3)
 boton4.addEventListener('click', habilidad4)
 
+const botonTutorial = document.getElementById('boton-tutorial')
+
 const botonInicio = document.getElementById('boton-inicio')
 botonInicio.addEventListener('click', empezar)
 
@@ -51,6 +54,10 @@ window.addEventListener('load',preparar)
 //------------------------------------------------
 
 function preparar() {
+
+    botonTutorial.innerHTML = 'Ver Tutorial'
+    botonTutorial.addEventListener('click', tutorial1)
+
 
     introContenido.classList.remove('oculto')
     introContenido.classList.add('visible')
@@ -86,6 +93,72 @@ function preparar() {
         record = localStorage.getItem("record")
     }
 }
+
+//----------------------------------------------------------------------   TUTORIAL
+
+function tutorial1() {
+    botonTutorial.innerHTML = 'Siguiente'
+    botonTutorial.addEventListener('click', tutorial2)
+
+    mensajeIntro.style.display = 'none'
+    botonInicio.style.display = 'none'
+    seccionTutorial.innerHTML = '<h3>Este es un juego de estilo combate por turnos.</h3>'
+        +'<h3> Donde deberas enfrentarte a diversos adversarios.</h3>'
+}
+
+function tutorial2() {
+    botonTutorial.addEventListener('click', tutorial3)
+
+    seccionTutorial.innerHTML = '<h3>Tu personaje tiene 4 habilidades.</h3>'
+        +'<h3>Cada una con un efecto diferente.</h3>'
+        +'<h3>Utilizalas para derrotar a tus oponentes.'
+}
+
+function tutorial3() {
+    botonTutorial.addEventListener('click', tutorial4)
+
+    seccionTutorial.innerHTML = '<h2>Estocada:</h2><h3> Es un ataque fisico con 20 de daño.</h3>'
+        +'<h3>Los enemigos pueden bloquearla o esquivarla.</h3>'
+        +'<h3>Si un enemigo bloquea un golpe recibira solo una parte del daño.</h3>'
+}
+
+function tutorial4() {
+    botonTutorial.addEventListener('click', tutorial5)
+
+    seccionTutorial.innerHTML = '<h2>Magia:</h2><h3> Es un ataque magico que no puede ser evadido por el rival.</h3>'
+        +'<h3>Cauza 10 de daño.</h3>'
+}
+
+function tutorial5() {
+    botonTutorial.addEventListener('click', tutorial6)
+
+    seccionTutorial.innerHTML = '<h2>Esquivar:</h2><h3> Evade un ataque rival.</h3>'
+        +'<h3>No recibiras daño.</h3>'
+}
+
+function tutorial6() {
+    botonTutorial.addEventListener('click', tutorial7)
+
+    seccionTutorial.innerHTML = '<h2>Ejecucion:</h2><h3> Realiza un daño proporcional a la vida faltante del adversario.</h3>'
+        +'<h3>Puede ser bloqueado o esquivado.</h3>'
+}
+
+function tutorial7() {
+    botonTutorial.addEventListener('click', tutorial8)
+
+    seccionTutorial.innerHTML = '<h3>Si el enemigo te golpea se reducira tu vida, si esta llega a 0 perderas el combate.</h3>'
+}
+
+function tutorial8() {
+    botonInicio.style.display = ''
+    botonTutorial.style.display = 'none'
+
+    seccionTutorial.innerHTML = '<h3>Gana enfrentamientos para aumentar tu racha de victorias y marcar un nuevo record.</h3>'
+        +'<h3>Si pierdes un combate deberas iniciar del principio.</h3>'
+}
+
+
+
 
 
 function empezar() {
