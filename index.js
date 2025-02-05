@@ -167,7 +167,7 @@ function empezar() {
 
     eleccionOponente = aleatorio(oponentes.length)
 
-    // eleccionOponente = 4
+    // eleccionOponente = 7
     
     const enemigoNombre = oponentes[eleccionOponente].nombre
     const enemigoImagen = oponentes[eleccionOponente].imgagen
