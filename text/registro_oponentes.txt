@@ -15,10 +15,24 @@ nv 2
         estocada: perdemos x2
         magia: empate
         estrategia: ganamos x2
+    trasgo
+        estocada: perdemos x2
+        magia: empate
+        estrategia: ganamos x4
+    
+    
 
 
 nv 3
     calaca
         estocada: perdemos siempre
         magia: perdemos x3
+        estrategia: empate
+    lican
+        estocada: perdemos siempre
+        magia: perdemos x2
+        estrategia: empate
+    golem
+        estocada: perdemos x2
+        magia: perdemos casi siempre
         estrategia: empate
