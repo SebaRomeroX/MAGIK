@@ -1,6 +1,20 @@
 
 import { oponentes } from "./oponentes/oponentes.js"
 
+const sonidoIntro = new Audio('./sound/thunder-intro.mp3')
+sonidoIntro.volume = .6
+sonidoIntro.preload = 'auto'
+
+const sonidoEspada = new Audio('./sound/sword.mp3')
+sonidoIntro.preload = 'auto'
+
+const sonidoMovimiento = new Audio('./sound/movement.mp3')
+sonidoMovimiento.volume = .6
+
+const sonidoMagia = new Audio('./sound/magic-spell.mp3')
+sonidoMagia.volume = .3
+
+
 const seccionEnemigo = document.getElementById('seccion-enemigo')
 
 const mensaje = document.getElementById('mensaje')
@@ -37,23 +51,35 @@ boton4.addEventListener('click', habilidad4)
 
 const botonTutorial = document.getElementById('boton-tutorial')
 
-const botonInicio = document.getElementById('boton-inicio')
-botonInicio.addEventListener('click', empezar)
+const botonMenuJuego = document.getElementById('boton-menu-juego')
+botonMenuJuego.addEventListener('click', mostrarMenuJuego)
 
 const botonContinuar = document.getElementById('boton-continuar')
-botonContinuar.addEventListener('click', empezar)
 
+const botonSupervivencia = document.getElementById('boton-supervivencia')
+const botonAventura = document.getElementById('boton-aventura')
+
+const menuModos = document.getElementById('menu-modos')
 
 let invicto = 0
 let record = 0
 
 let eleccionOponente = 0
 
+let modoJuego = ''
+let nivelJugador = 1
+
 window.addEventListener('load',preparar)
 
-//------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------
 
 function preparar() {
+    sonidoIntro.play()
+
+    console.log('inicio');
+    modoJuego = ''
+    
+    menuModos.style.display = 'none'
 
     botonTutorial.innerHTML = 'Ver Tutorial'
     botonTutorial.addEventListener('click', tutorial1)
@@ -101,7 +127,7 @@ function tutorial1() {
     botonTutorial.addEventListener('click', tutorial2)
 
     mensajeIntro.style.display = 'none'
-    botonInicio.style.display = 'none'
+    botonMenuJuego.style.display = 'none'
     seccionTutorial.innerHTML = '<h3>Este es un juego de estilo combate por turnos.</h3>'
         +'<h3> Donde deberas enfrentarte a diversos adversarios.</h3>'
 }
@@ -150,24 +176,63 @@ function tutorial7() {
 }
 
 function tutorial8() {
-    botonInicio.style.display = ''
     botonTutorial.style.display = 'none'
+    botonMenuJuego.style.display = ''
 
     seccionTutorial.innerHTML = '<h3>Gana enfrentamientos para aumentar tu racha de victorias y marcar un nuevo record.</h3>'
         +'<h3>Si pierdes un combate deberas iniciar del principio.</h3>'
 }
 
 
+//------------------------------------------------------ MENU JUEGO
+
+
+function mostrarMenuJuego() {
+    mensajeIntro.style.display = "none"
+    botonTutorial.style.display = "none"
+    botonMenuJuego.style.display = "none"
+
+    seccionTutorial.style.display = "none"
+    menuModos.style.display = ''
+
+    botonSupervivencia.addEventListener('click', supervivencia)
+    botonAventura.addEventListener('click', aventura)
+}
+
+
+function supervivencia() {
+    console.log('supervivencia');
+    modoJuego = 'supervivencia'
+    
+    eleccionOponente = aleatorio(oponentes.length)
+
+    empezar(eleccionOponente)
+}
+
+function aventura() {
+    console.log('aventura');
+    modoJuego = 'aventura'
+
+    if (nivelJugador == 4) {
+        mostrarMenuJuego()
+    }
+    
+    do {
+        eleccionOponente = aleatorio(oponentes.length)
+        
+    } while (oponentes[eleccionOponente].nivel != nivelJugador);
+
+    console.log(oponentes[eleccionOponente].nivel);
+    
+    empezar(eleccionOponente)
+}
 
 
 
-function empezar() {
+function empezar(eleccionOponente) {
 
     //--------------------------------------  ELECCION OPONENTE-----------------------
 
-    eleccionOponente = aleatorio(oponentes.length)
-
-    // eleccionOponente = 7
     
     const enemigoNombre = oponentes[eleccionOponente].nombre
     const enemigoImagen = oponentes[eleccionOponente].imgagen
@@ -230,6 +295,7 @@ function habilidad1() {
 
     mensajeJugador.innerHTML = 'Jugador ataca'
     
+    sonidoEspada.play()
 
     turnoConsecuencia( accion, valor)
 }
@@ -242,6 +308,7 @@ function habilidad2() {
 
     mensajeJugador.innerHTML = 'Jugador ataca con magia, no se puede bloqear'
     
+    sonidoMagia.play()
 
     turnoConsecuencia( accion, valor) 
 }
@@ -253,7 +320,8 @@ function habilidad3() {
     const valor = 1
 
     mensajeJugador.innerHTML = 'Jugador esquiva'
-    
+
+    sonidoMovimiento.play()
 
     turnoConsecuencia( accion, valor) 
 }
@@ -265,7 +333,8 @@ function habilidad4() {
     const valor = Math.floor(1500/vidaEnemigoActual) 
 
     mensajeJugador.innerHTML = 'Jugador ataca aprovechando debilidad'
-    
+
+    sonidoEspada.play()
 
     turnoConsecuencia( accion, valor)
 }
@@ -411,19 +480,63 @@ function turnoConsecuencia(accion, valor) {
 
 
 function evaluarVida() {
+    let mensajeRecord = `, Tu mejor marca es de ${record}`
+    if (modoJuego == 'supervivencia') {
+        botonContinuar.addEventListener('click', supervivencia)
+    }
+
+
+    if (modoJuego == 'aventura') {
+        botonContinuar.addEventListener('click', aventura)
+
+        if (nivelJugador == 1) {
+            mensajeRecord = '. Necesitas una racha de 3 para avanzar'
+        }else if(nivelJugador == 2){
+            mensajeRecord = '. Necesitas una racha de 2 para avanzar'
+        }else if(nivelJugador == 3){
+            mensajeRecord = '. Necesitas vencer solo a 1 para ganar'
+        }
+    } 
+
     
+
     if (vidaEnemigoActual<=0) {
         mensaje.innerHTML='Derrotaste a tu oponente!'
 
+        botonContinuar.style.display = 'block'
+        
         invicto ++
+        
+        mensajeInvicto.innerHTML = `Levas ${invicto} combates ganados`+mensajeRecord
+        mensajeInvicto.style.display = 'block'
+    
+
+        if (modoJuego == 'aventura') {
+            if (nivelJugador == 1 && invicto == 3) {
+                nivelJugador ++
+                invicto = 0
+                mensajeInvicto.innerHTML = 'Pasas al siguiente nivel'
+                mensajeRecord = ''
+                
+            }else if (nivelJugador == 2 && invicto == 2) {
+                nivelJugador ++
+                invicto = 0
+                mensajeInvicto.innerHTML = 'Pasas al siguiente nivel'
+                mensajeRecord = ''
+                
+            }else if (nivelJugador == 3 && invicto == 1) {
+                mensajeInvicto.innerHTML = 'Ganaste !!'
+                mensajeRecord = ''
+
+                botonContinuar.style.display = 'none'
+            }
+        }
+
         if (invicto > record) {
             record = invicto
             localStorage.setItem("record", record)
         }
-        
-        mensajeInvicto.innerHTML = `Levas ${invicto} combates ganados, Tu mejor marca es de ${record}`
-        mensajeInvicto.style.display = 'block'
-        
+
 
         let imagen = document.querySelector('.enemigo')
         imagen.classList.add('difuminado')
@@ -431,13 +544,13 @@ function evaluarVida() {
 
         mensajeJugador.style.display = 'none'
         mensajeEnemigo.style.display = 'none'
-        botonContinuar.style.display = 'block'
+
 
     }else if (vidaJugadorActual <= 0) {
         mensaje.innerHTML='Fuiste vencido ...'
 
         invicto = 0
-        mensajeInvicto.innerHTML = `Perdiste tu racha, Tu mejor marca es de ${record}`
+        mensajeInvicto.innerHTML = `Perdiste tu racha`+mensajeRecord
         mensajeInvicto.style.display = 'block'
 
         let imagen = document.querySelector('.jugador')
