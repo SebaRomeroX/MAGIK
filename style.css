@@ -64,6 +64,15 @@ body{
 
 
 
+#menu-modos{
+    display: flex;
+    gap: 10%;
+}
+
+
+
+
+
 
 header{
     display: flex;
