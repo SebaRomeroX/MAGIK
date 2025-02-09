@@ -21,6 +21,7 @@ export const oponentes = [
         nombre: "Guerrero desconocido",
         imgagen: 'guerrero_desconocido.jpg',
         vida: 100,
+        nivel: 2,
         comportamiento: function() {          
             const acciones = [
                 {
@@ -52,6 +53,7 @@ export const oponentes = [
         nombre: "Wargo",
         imgagen: 'lobo.jpg',
         vida: 100,
+        nivel: 1,
         comportamiento: function() {      
             const acciones = [
                 {
@@ -78,6 +80,7 @@ export const oponentes = [
         nombre: "Acromantula",
         imgagen: 'araña_gigante.jpg',
         vida: 130,
+        nivel: 1,
         comportamiento: function() {
             const acciones = [
                 {
@@ -100,6 +103,7 @@ export const oponentes = [
         nombre: "Murcielago Mutante",
         imgagen: 'murcielago_mutante.jpg',
         vida: 70,
+        nivel: 1,
         comportamiento: function() {
             const acciones = [
                 {
@@ -126,6 +130,7 @@ export const oponentes = [
         nombre: "Figura Misteriosa",
         imgagen: 'la_calaca.png',
         vida: 120,
+        nivel: 3,
         comportamiento: function() {
             const acciones = [
                 {
@@ -153,6 +158,7 @@ export const oponentes = [
         nombre: "Trasgo",
         imgagen: 'trasgo.jpg',
         vida: 90,
+        nivel: 2,
         comportamiento: function() {          
             const acciones = [
                 {
@@ -180,6 +186,7 @@ export const oponentes = [
         nombre: "Lican",
         imgagen: 'lican.jpg',
         vida: 120,
+        nivel: 3,
         comportamiento: function() {      
             const acciones = [
                 {
@@ -202,6 +209,7 @@ export const oponentes = [
         nombre: "Golem",
         imgagen: 'golem.jpg',
         vida: 140,
+        nivel: 3,
         comportamiento: function() {          
             const acciones = [
                 {
