@@ -74,8 +74,6 @@ window.addEventListener('load',preparar)
 //------------------------------------------------------------------------------------------------------------------------
 
 function preparar() {
-    sonidoIntro.play()
-
     console.log('inicio');
     modoJuego = ''
     
@@ -196,7 +194,10 @@ function mostrarMenuJuego() {
     menuModos.style.display = ''
 
     botonSupervivencia.addEventListener('click', supervivencia)
+    botonSupervivencia.onclick = ()=> sonidoIntro.play()
+
     botonAventura.addEventListener('click', aventura)
+    botonAventura.onclick = ()=> sonidoIntro.play()
 }
 
 
