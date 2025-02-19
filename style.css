@@ -93,6 +93,17 @@ small{
     padding: 0 1em;
 }
 
+
+
+#mensaje-invicto, #boton-continuar, #nombre-enemigo, #seccion-vida-enemigo, #seccion-vida-jugador, #seccion-habilidades {
+    display: none;
+}
+
+
+
+
+
+
 .pantalla{
     display: flex;
     height: 60vh;
@@ -165,8 +176,9 @@ small{
 
 .difuminado{
     opacity: 0.4;
+    filter: brightness(0.5) sepia(1) hue-rotate(-50deg) saturate(5);
 
-    transition: opacity 3s ease;
+    transition: opacity 3s ease filter 3s ease;
 }
 
 
