@@ -189,6 +189,9 @@ boton4.addEventListener('click', habilidad4)
 
 let vidaJugadorActual;
 
+const mensajeNivel = document.getElementById('nivel-jugador')
+
+
 //------------------------
 
 const seccionEnemigo = document.getElementById('seccion-enemigo')
@@ -217,6 +220,8 @@ function cargarPersonaje() {             //------------ CARGAR PERSONAJE
     vidaJugador.innerHTML= vidaJugadorActual
 
     vidaJugadorTotal.innerHTML = vidaJugadorActual
+
+    mensajeNivel.innerHTML = "Nivel " + nivelStats
 
     let imagen = document.querySelector('.jugador')
     if (imagen.classList.contains('difuminado')) {
@@ -298,8 +303,8 @@ function iniciarTurno() {
     mensaje.innerHTML='Elige accion . . .'
     mensajeJugador.innerHTML = ''
     mensajeEnemigo.innerHTML = ''
-    mensajeJugador.style.display = 'none'
-    mensajeEnemigo.style.display = 'none'
+    mensajeJugador.style.display = 'block'
+    mensajeEnemigo.style.display = 'block'
 
     boton1.disabled= false
     boton2.disabled= false
@@ -312,7 +317,16 @@ function iniciarTurno() {
 
 function habilidad1() {
     const accion= 'ataque'
-    let valor = 20 * ataque // -------------------- PRUEBA ATAQUE NIVEL
+
+    let valor = 20 //---- valor base
+    // console.log("atq base "+ valor);
+
+    valor *= ataque // -------------------- PRUEBA ATAQUE NIVEL
+    // console.log("atq + nivel "+ valor);
+
+    // valor += (nivelStats-1) * 5   // -------------------- PRUEBA upgrade skill
+    console.log("atq upgrade "+ valor);
+    
 
     mensajeJugador.innerHTML = 'Jugador ataca'
 
@@ -445,7 +459,7 @@ function accionRival() {
 function turnoJugador() {
     //--    ---   - - - - ----------------- turno jugador
     // console.log("turno jugador")
-    mensajeJugador.style.display = 'block'
+    // mensajeJugador.style.display = 'block'
 
 
     if (esqivaEnemigo == 1) {
@@ -489,7 +503,7 @@ function turnoJugador() {
 
 function turnoRival() {
     // console.log("turno rival")
-    mensajeEnemigo.style.display = 'block'
+    // mensajeEnemigo.style.display = 'block'
 
 
     if (esqivaJugador == 1) {
@@ -594,8 +608,6 @@ function victoria(mensajeRecord) {
 
     let imagen = document.querySelector('.enemigo')
     imagen.classList.add('difuminado')
-
-    console.log(imagen.classList);
     
     
     //----      -------     ------- PRUEBA NIVEL
@@ -679,8 +691,6 @@ function derrota(mensajeRecord) {
 
     let imagen = document.querySelector('.jugador')
     imagen.classList.add('difuminado')
-
-    console.log("filtro");
     
     mensajeJugador.style.display = 'none'
     mensajeEnemigo.style.display = 'none'
