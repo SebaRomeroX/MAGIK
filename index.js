@@ -160,7 +160,10 @@ function aventura() {
     -----------------------------------**********************************************-------------------------------------------------
 */ 
 
-//------------ CARGAR PERSONAJE
+
+
+//-------------------**************************-------------------------PREPARAMOS ENFRENTAMIENTO
+
 
 const seccionHabilidades = document.getElementById('seccion-habilidades')
 const seccionVidaJugador = document.getElementById('seccion-vida-jugador')
@@ -171,6 +174,8 @@ const mensajeInvicto = document.getElementById('mensaje-invicto')
 const botonContinuar = document.getElementById('boton-continuar')
 
 const vidaJugador = document.getElementById('vida-jugador')
+const vidaJugadorTotal = document.getElementById('vida-jugador-total')
+
 
 const boton1 = document.getElementById('boton-1')
 const boton2 = document.getElementById('boton-2')
@@ -184,8 +189,7 @@ boton4.addEventListener('click', habilidad4)
 
 let vidaJugadorActual;
 
-
-//------------ CARGAR ENEMIGO
+//------------------------
 
 const seccionEnemigo = document.getElementById('seccion-enemigo')
 const nombreEnemigo = document.getElementById('nombre-enemigo')
@@ -199,25 +203,9 @@ let vidaEnemigoActual;
 import { oponentes } from "./oponentes/oponentes.js"
 
 
-//------------ COMBATE
+//-----------------     -----------     ------
 
-const mensaje = document.getElementById('mensaje')
-const mensajeJugador = document.getElementById('mensaje-jugador')
-const mensajeEnemigo = document.getElementById('mensaje-enemigo')
-
-
-
-
-
-
-
-
-
-
-
-
-
-function cargarPersonaje() {
+function cargarPersonaje() {             //------------ CARGAR PERSONAJE
     seccionHabilidades.style.display = 'block'
     mensajeInvicto.style.display = 'none'
     seccionVidaJugador.style.display = 'block'
@@ -227,6 +215,8 @@ function cargarPersonaje() {
     vidaJugadorActual = 100 + vidaPlus  //----------------------- PRUEVA VIDA NIVEL
     vidaJugador.style.color = 'green'
     vidaJugador.innerHTML= vidaJugadorActual
+
+    vidaJugadorTotal.innerHTML = vidaJugadorActual
 
     let imagen = document.querySelector('.jugador')
     if (imagen.classList.contains('difuminado')) {
@@ -244,12 +234,15 @@ function cargarPersonaje() {
 
 //---------------------
 
+let enemigoVidaTotal
 
 function cargarEnemigo() {    //-------------------  ELECCION OPONENTE----------------
     eleccionOponente = elegirOponente()
+    // eleccionOponente = 0 //-------------- PARA TEST
+
     const enemigoNombre = oponentes[eleccionOponente].nombre
     const enemigoImagen = oponentes[eleccionOponente].imgagen
-    const enemigovidaTotal = oponentes[eleccionOponente].vida
+    enemigoVidaTotal = oponentes[eleccionOponente].vida
 
     seccionEnemigo.style.backgroundImage = `url('./img/${enemigoImagen}')`
 
@@ -262,10 +255,10 @@ function cargarEnemigo() {    //-------------------  ELECCION OPONENTE----------
     }
 
     seccionVidaEnemigo.style.display = 'block'
-    vidaEnemigoActual = enemigovidaTotal
+    vidaEnemigoActual = enemigoVidaTotal
     vidaEnemigo.style.color = 'green'
     vidaEnemigo.innerHTML= vidaEnemigoActual
-    vidaEnemigoTotal.innerHTML= enemigovidaTotal
+    vidaEnemigoTotal.innerHTML= enemigoVidaTotal
 
     iniciarTurno()
 }
@@ -283,7 +276,22 @@ function elegirOponente() {
 }
 
 
-//----------------------
+
+
+
+
+
+
+
+
+
+
+
+//------****************************------------------****************------ACCIONES
+
+const mensaje = document.getElementById('mensaje')
+const mensajeJugador = document.getElementById('mensaje-jugador')
+const mensajeEnemigo = document.getElementById('mensaje-enemigo')
 
 
 function iniciarTurno() {
@@ -334,8 +342,19 @@ function habilidad3() {
 
 function habilidad4() {
     const accion= 'ataque'
-    const valor = Math.floor(1500/vidaEnemigoActual) 
-    // const valor = 100
+    // const valor = Math.floor(1500/vidaEnemigoActual) 
+
+    let porcentaje = vidaEnemigoActual *100 / enemigoVidaTotal
+    let valor = (-2/5 * porcentaje) + 44
+
+    valor =  Math.floor(valor)
+
+    console.log(valor);
+    
+
+
+    // const valor = 100  //--------------------- VALOR TEST
+
 
     mensajeJugador.innerHTML = 'Jugador ataca aprovechando debilidad'
 
@@ -389,6 +408,8 @@ function accionRival() {
 
     const enemigoComportamiento = () => oponentes[eleccionOponente].comportamiento()
     const [ accionEnemigo, valorEnemigo ] = enemigoComportamiento()
+
+    // const accionEnemigo = 'espera' // --------- TEST 
     
     ataqueEnemigo = 0
     bloqueoEnemigo = 0
@@ -415,6 +436,11 @@ function accionRival() {
 
     turnoJugador()
 }
+
+
+
+
+//--------------*****************---------******------------********************------ CONSECUENCIAS
 
 function turnoJugador() {
     //--    ---   - - - - ----------------- turno jugador
@@ -519,6 +545,10 @@ const sonidoGolpe = new Audio('./sound/punch.mp3')
 sonidoGolpe.volume = .6
 
 
+
+
+//**************---------------------------**********************----------------- RESULTADO
+
 let invicto = 0
 let record = 0
 let nivelJugador = 1
@@ -568,11 +598,11 @@ function victoria(mensajeRecord) {
     console.log(imagen.classList);
     
     
-    //------- PRUEBA
-    let expNecesaria = 3
+    //----      -------     ------- PRUEBA NIVEL
+    let expNecesaria = 2
     combateExp++
 
-    if (combateExp == nivelStats * expNecesaria) {
+    if (combateExp ==  nivelStats * expNecesaria) {
         nivelStats++
         combateExp = 0
 
