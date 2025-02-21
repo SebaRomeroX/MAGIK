@@ -1,168 +1,40 @@
-/* ----------------------------------**************************************************-----------------------------------------------
-    INTRO del juego
-    -Tutorial 
-    -Seleccion de modo de Juego
 
-    ----------------------------------**************************************************--------------------------------------------------
-*/ 
+/*------------------- INTRO 
+    PRIMERA PANTALLA
+    TUTORIAL
+    Y ELECCION DE MODO JUEGO
+
+*/
+
+
 const sonidoIntro = new Audio('./sound/thunder-intro.mp3')
 sonidoIntro.volume = .6
 sonidoIntro.preload = 'auto'
 
-const mensajeIntro = document.getElementById('mensaje-intro')
-const introContenido = document.getElementById('intro-contenido')
+import { preparar, modoJuego } from "./modules/intro.js";
 
-const seccionTutorial = document.getElementById('seccion-tutorial')
-const botonTutorial = document.getElementById('boton-tutorial')
-
-const botonMenuJuego = document.getElementById('boton-menu-juego')
-botonMenuJuego.addEventListener('click', mostrarMenuJuego)
-
-const botonSupervivencia = document.getElementById('boton-supervivencia')
-const botonAventura = document.getElementById('boton-aventura')
-
-const menuModos = document.getElementById('menu-modos')
-
-let modoJuego = ''
-
-//----------------------
+//-------------------------------------------------------------
 
 window.addEventListener('load',preparar)
 
-function preparar() {    
-    menuModos.style.display = 'none'
 
-    botonTutorial.innerHTML = 'Ver Tutorial'
-    botonTutorial.addEventListener('click', tutorial1)
+const intervalo = setInterval(() => { 
+    console.log("Esperando modo juego..."); // Espera que se eliga modo juego
 
-    introContenido.classList.remove('oculto')
-    introContenido.classList.add('visible')
-
-    let mensajesIntro = [
-        'Las sombras acechan a Magik. Solo el acero y la magia decidirán su destino en este combate sin tregua.',
-        'Criaturas oscuras se interponen en el camino de Magik… pero ella no retrocederá jamas.',
-        'Magik debe enfrentar a las tinieblas o ser consumida por ellas.',
-        'De las sombras emergen enemigos… Magik esta lista para el combate.',
-        'Magik no teme a la oscuridad. La oscuridad aprenderá a temerle a ella.',
-        'El destino ha marcado su camino con sangre y fuego. Magik avanza hacia el.'
-    ]
-    
-    mensajeIntro.innerHTML = mensajesIntro[aleatorio(mensajesIntro.length)]
-
-    if (localStorage.getItem("record")) {
-        record = localStorage.getItem("record")
+    if (modoJuego != '') { 
+        clearInterval(intervalo); 
+        cargarPersonaje()
+        sonidoIntro.play()
     }
-}
-
-//------------------------------------------------------   TUTORIAL
-
-function tutorial1() {
-    botonTutorial.innerHTML = 'Siguiente'
-    botonTutorial.addEventListener('click', tutorial2)
-
-    mensajeIntro.style.display = 'none'
-    botonMenuJuego.style.display = 'none'
-    seccionTutorial.innerHTML = '<h3>Este es un juego de estilo combate por turnos.</h3>'
-        +'<h3> Donde deberas enfrentarte a diversos adversarios.</h3>'
-}
-
-function tutorial2() {
-    botonTutorial.addEventListener('click', tutorial3)
-
-    seccionTutorial.innerHTML = '<h3>Tu personaje tiene 4 habilidades.</h3>'
-        +'<h3>Cada una con un efecto diferente.</h3>'
-        +'<h3>Utilizalas para derrotar a tus oponentes.'
-}
-
-function tutorial3() {
-    botonTutorial.addEventListener('click', tutorial4)
-
-    seccionTutorial.innerHTML = '<h2>Estocada:</h2><h3> Es un ataque fisico con 20 de daño.</h3>'
-        +'<h3>Los enemigos pueden bloquearla o esquivarla.</h3>'
-        +'<h3>Si un enemigo bloquea un golpe recibira solo una parte del daño.</h3>'
-}
-
-function tutorial4() {
-    botonTutorial.addEventListener('click', tutorial5)
-
-    seccionTutorial.innerHTML = '<h2>Magia:</h2><h3> Es un ataque magico que no puede ser evadido por el rival.</h3>'
-        +'<h3>Cauza 10 de daño.</h3>'
-}
-
-function tutorial5() {
-    botonTutorial.addEventListener('click', tutorial6)
-
-    seccionTutorial.innerHTML = '<h2>Esquivar:</h2><h3> Evade un ataque rival.</h3>'
-        +'<h3>No recibiras daño.</h3>'
-}
-
-function tutorial6() {
-    botonTutorial.addEventListener('click', tutorial7)
-
-    seccionTutorial.innerHTML = '<h2>Ejecucion:</h2><h3> Realiza un daño proporcional a la vida faltante del adversario.</h3>'
-        +'<h3>Puede ser bloqueado o esquivado.</h3>'
-}
-
-function tutorial7() {
-    botonTutorial.addEventListener('click', tutorial8)
-
-    seccionTutorial.innerHTML = '<h3>Si el enemigo te golpea se reducira tu vida, si esta llega a 0 perderas el combate.</h3>'
-}
-
-function tutorial8() {
-    botonTutorial.style.display = 'none'
-    botonMenuJuego.style.display = ''
-
-    seccionTutorial.innerHTML = '<h3>Gana enfrentamientos para aumentar tu racha de victorias y marcar un nuevo record.</h3>'
-        +'<h3>Si pierdes un combate deberas iniciar del principio.</h3>'
-}
-
-
-//------------------------------------------------ MENU JUEGO
-
-
-function mostrarMenuJuego() {
-    mensajeIntro.style.display = "none"
-    botonTutorial.style.display = "none"
-    botonMenuJuego.style.display = "none"
-
-    seccionTutorial.style.display = "none"
-    menuModos.style.display = ''
-
-    botonSupervivencia.addEventListener('click', supervivencia)
-    botonAventura.addEventListener('click', aventura)
-}
-
-
-function supervivencia() {
-    sonidoIntro.play()
-
-    modoJuego = 'supervivencia'
-    
-    cargarPersonaje()
-}
-
-function aventura() {
-    sonidoIntro.play()
-
-    modoJuego = 'aventura'
-
-    cargarPersonaje()
-}
-
-
-
+}, 500);
 
 /* -----------------------------------**************************************************----------------------------------------------
     JUEGO
     -Combate 
 
-    -----------------------------------**********************************************-------------------------------------------------
-*/ 
 
 
-
-//-------------------**************************-------------------------PREPARAMOS ENFRENTAMIENTO
+//-------------------**************************--------*****************************            PREPARAMOS ENFRENTAMIENTO              */
 
 
 const seccionHabilidades = document.getElementById('seccion-habilidades')
@@ -203,25 +75,39 @@ const vidaEnemigoTotal = document.getElementById('vida-enemigo-total')
 let eleccionOponente = 0
 let vidaEnemigoActual;
 
-import { oponentes } from "./oponentes/oponentes.js"
+import { oponentes } from "./modules/oponentes.js"
+import { protagonista } from "./modules/protagonista.js";
+
+let invicto = 0
+let record = 0
+let nivelJugador = 1
+
+if (localStorage.getItem("record")) {
+    record = localStorage.getItem("record")
+}
+
+const nombreProta = document.getElementById("nombre-protagonista")
+
 
 
 //-----------------     -----------     ------
 
 function cargarPersonaje() {             //------------ CARGAR PERSONAJE
+    nombreProta.innerHTML = protagonista.nombre
+    mensajeNivel.innerHTML = "Nivel " + protagonista.nivel
+
     seccionHabilidades.style.display = 'block'
     mensajeInvicto.style.display = 'none'
     seccionVidaJugador.style.display = 'block'
     botonContinuar.style.display = 'none'
     seccionIntro.classList.add('oculto')
 
-    vidaJugadorActual = 100 + vidaPlus  //----------------------- PRUEVA VIDA NIVEL
+    vidaJugadorActual = protagonista.vida  //----------------------- PRUEVA VIDA NIVEL
     vidaJugador.style.color = 'green'
     vidaJugador.innerHTML= vidaJugadorActual
 
     vidaJugadorTotal.innerHTML = vidaJugadorActual
 
-    mensajeNivel.innerHTML = "Nivel " + nivelStats
 
     let imagen = document.querySelector('.jugador')
     if (imagen.classList.contains('difuminado')) {
@@ -243,7 +129,7 @@ let enemigoVidaTotal
 
 function cargarEnemigo() {    //-------------------  ELECCION OPONENTE----------------
     eleccionOponente = elegirOponente()
-    // eleccionOponente = 0 //-------------- PARA TEST
+    // eleccionOponente = 3 //-------------- PARA TEST
 
     const enemigoNombre = oponentes[eleccionOponente].nombre
     const enemigoImagen = oponentes[eleccionOponente].imgagen
@@ -292,7 +178,7 @@ function elegirOponente() {
 
 
 
-//------****************************------------------****************------ACCIONES
+//------****************************------------------******-------------------------**********------ACCIONES
 
 const mensaje = document.getElementById('mensaje')
 const mensajeJugador = document.getElementById('mensaje-jugador')
@@ -316,63 +202,54 @@ function iniciarTurno() {
 //---------------- --------  HABILIDADES 
 
 function habilidad1() {
-    const accion= 'ataque'
+    const habilidad = protagonista.habilidades[0]
 
-    let valor = 20 //---- valor base
-    // console.log("atq base "+ valor);
+    const accion= habilidad.accion
+    const valor = habilidad.valor
+    mensajeJugador.innerHTML = habilidad.mensaje
 
-    valor *= ataque // -------------------- PRUEBA ATAQUE NIVEL
-    // console.log("atq + nivel "+ valor);
-
-    // valor += (nivelStats-1) * 5   // -------------------- PRUEBA upgrade skill
-    console.log("atq upgrade "+ valor);
-    
-
-    mensajeJugador.innerHTML = 'Jugador ataca'
+    console.log(valor);    
 
     accionJugador( accion, valor)
 }
 
 
 function habilidad2() {
-    const accion= 'magia'
-    let valor = 10 * ataque // -------------------- PRUEBA ATAQUE NIVEL
+    const habilidad = protagonista.habilidades[1]
 
-    mensajeJugador.innerHTML = 'Jugador ataca con magia, no se puede bloqear'
+    const accion= habilidad.accion
+    const valor = habilidad.valor
+    mensajeJugador.innerHTML = habilidad.mensaje
+
+    console.log(valor);    
 
     accionJugador( accion, valor) 
 }
 
 
 function habilidad3() {
-    const accion= 'esquive'
-    const valor = 1
+    const habilidad = protagonista.habilidades[2]
 
-    mensajeJugador.innerHTML = 'Jugador esquiva'
+    const accion= habilidad.accion
+    const valor = habilidad.valor
+    mensajeJugador.innerHTML = habilidad.mensaje
+
+    console.log("esquiva");    
 
     accionJugador( accion, valor) 
 }
 
 
 function habilidad4() {
-    const accion= 'ataque'
-    // const valor = Math.floor(1500/vidaEnemigoActual) 
+    const habilidad = protagonista.habilidades[3]
 
-    let porcentaje = vidaEnemigoActual *100 / enemigoVidaTotal
-    let valor = (-2/5 * porcentaje) + 44
+    const accion= habilidad.accion
+    const valor = habilidad.valor(vidaEnemigoActual, enemigoVidaTotal) // requiere datos para calcular
+    mensajeJugador.innerHTML = habilidad.mensaje
 
-    valor =  Math.floor(valor)
+    console.log(valor);    
 
-    console.log(valor);
-    
-
-
-    // const valor = 100  //--------------------- VALOR TEST
-
-
-    mensajeJugador.innerHTML = 'Jugador ataca aprovechando debilidad'
-
-    accionJugador( accion, valor)
+    accionJugador( accion, valor) 
 }
 
 //--------------------------- accion jugador
@@ -454,7 +331,7 @@ function accionRival() {
 
 
 
-//--------------*****************---------******------------********************------ CONSECUENCIAS
+//--------------*****************---------******------------***********-------------------*********------ CONSECUENCIAS
 
 function turnoJugador() {
     //--    ---   - - - - ----------------- turno jugador
@@ -561,18 +438,14 @@ sonidoGolpe.volume = .6
 
 
 
-//**************---------------------------**********************----------------- RESULTADO
+//**************---------------------------************-------------------------------------**********----------------- RESULTADO
 
-let invicto = 0
-let record = 0
-let nivelJugador = 1
 
 
 //--------------------------------- STATS SEGUN NIVEL
-let nivelStats = 1
+
+
 let combateExp = 0
-let ataque = 1
-let vidaPlus = 0
 
 //-----------------------------------
 
@@ -614,18 +487,15 @@ function victoria(mensajeRecord) {
     let expNecesaria = 2
     combateExp++
 
-    if (combateExp ==  nivelStats * expNecesaria) {
-        nivelStats++
-        combateExp = 0
+    if (combateExp ==  protagonista.nivel * expNecesaria) {
+        protagonista.levelUp()  //---------- Nuevo levelup en objeto prota
 
-        ataque = Math.round((ataque + 0.1) *10) /10 
-    
-        vidaPlus += 10
+        combateExp = 0
     }
-    console.log("nivel "+ nivelStats)
+    console.log("nivel "+ protagonista.nivel)
     console.log("exp "+ combateExp)
-    console.log("atq "+ ataque)
-    console.log("vida "+ vidaPlus)
+    console.log("atq "+ protagonista.ataque)
+    console.log("vida "+ protagonista.vida)
 
     //----------------
 
@@ -676,14 +546,12 @@ function derrota(mensajeRecord) {
     mensaje.innerHTML='Fuiste vencido ...'
 
     combateExp = 0 //------------------------- PRUEBA NIVEL
-    nivelStats = 1
-    ataque = 1
-    vidaPlus = 0
+    protagonista.derrota() // --- nuevo reinicio con objt Prota
 
-    console.log("nivel "+ nivelStats)
+    console.log("nivel "+ protagonista.nivel)
     console.log("exp "+ combateExp)
-    console.log("atq "+ ataque)
-    console.log("vida "+ vidaPlus)
+    console.log("atq "+ protagonista.ataque)
+    console.log("vida "+ protagonista.vida)
     
     invicto = 0
     mensajeInvicto.innerHTML = `Perdiste tu racha`+mensajeRecord
