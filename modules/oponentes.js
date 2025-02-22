@@ -1,17 +1,22 @@
 
 function generarAtaqueAleatorio(acciones) {
-    let listado = []
+    let listado = [] // guardamos acciones a usar
 
-    for (let i = 0; i < acciones.length; i++) {
-        for (let j = 0; j < acciones[i].chance; j++) {
+    for (let i = 0; i < acciones.length; i++) { // acciones disponibles
+        for (let j = 0; j < acciones[i].chance; j++) { // cantidad de probabilidades de cada accion
             listado.push(i);
         }
     }
+    console.log(listado);
+    
 
-    let numRand = Math.floor(Math.random() * acciones.length)
+    let numRand = Math.floor(Math.random() * listado.length) // posicion en listado
+    console.log(numRand);
+    console.log(listado[numRand]);
+    
 
-    let accion = acciones[numRand].accion
-    let valor = acciones[numRand].valor
+    let accion = acciones[listado[numRand]].accion // posicion en acciones
+    let valor = acciones[listado[numRand]].valor
 
     return [ accion, valor ]
 }
@@ -20,28 +25,28 @@ export const oponentes = [
     {
         nombre: "Guerrero desconocido",
         imgagen: 'guerrero_desconocido.jpg',
-        vida: 100,
-        nivel: 3,
+        vida: 120,
+        nivel: 4,
         comportamiento: function() {          
             const acciones = [
                 {
                     accion: 'ataque',
-                    valor: 35,
-                    chance: 3
+                    valor: 30,
+                    chance: 4
                 },
                 {
                     accion: 'esquive',
                     valor: 1,
-                    chance: 3
+                    chance: 2
                 },
                 {
                     accion: 'bloqueo',
                     valor: 15,
-                    chance: 2
+                    chance: 1
                 },
                 {
                     accion: 'espera',
-                    chance: 1
+                    chance: 0
                 }
             ]
 
@@ -52,23 +57,23 @@ export const oponentes = [
     {
         nombre: "Wargo",
         imgagen: 'lobo.jpg',
-        vida: 100,
+        vida: 90,
         nivel: 2,
         comportamiento: function() {      
             const acciones = [
                 {
                     accion: 'ataque',
                     valor: 20,
-                    chance: 2
+                    chance: 3
                 },
                 {
                     accion: 'esquive',
                     valor: 1,
-                    chance: 2
+                    chance: 1
                 },
                 {
                     accion: 'espera',
-                    chance: 1
+                    chance: 0
                 }
             ]
 
@@ -79,14 +84,14 @@ export const oponentes = [
     {
         nombre: "Acromantula",
         imgagen: 'araña_gigante.jpg',
-        vida: 130,
+        vida: 120,
         nivel: 2,
         comportamiento: function() {
             const acciones = [
                 {
                     accion: 'ataque',
                     valor: 15,
-                    chance: 2
+                    chance: 3
                 },
                 {
                     accion: 'esquive',
@@ -109,16 +114,16 @@ export const oponentes = [
                 {
                     accion: 'ataque',
                     valor: 20,
-                    chance: 3
+                    chance: 2
                 },
                 {
                     accion: 'esquive',
                     valor: 1,
-                    chance: 2
+                    chance: 1
                 },
                 {
                     accion: 'espera',
-                    chance: 1
+                    chance: 0
                 }
             ]
 
@@ -129,14 +134,14 @@ export const oponentes = [
     {
         nombre: "Figura Misteriosa",
         imgagen: 'la_calaca.png',
-        vida: 120,
-        nivel: 5,
+        vida: 140,
+        nivel: 6,
         comportamiento: function() {
             const acciones = [
                 {
                     accion: 'ataque',
                     valor: 35,
-                    chance: 2
+                    chance: 4
                 },
                 {
                     accion: 'esquive',
@@ -145,8 +150,8 @@ export const oponentes = [
                 },
                 {
                     accion: 'bloqueo',
-                    valor: 15,
-                    chance: 2
+                    valor: 25,
+                    chance: 1
                 }
             ]
 
@@ -158,18 +163,18 @@ export const oponentes = [
         nombre: "Trasgo",
         imgagen: 'trasgo.jpg',
         vida: 90,
-        nivel: 4,
+        nivel: 3,
         comportamiento: function() {          
             const acciones = [
                 {
                     accion: 'ataque',
-                    valor: 40,
-                    chance: 3
+                    valor: 35,
+                    chance: 4
                 },
                 {
                     accion: 'esquive',
                     valor: 1,
-                    chance: 2
+                    chance: 1
                 },
                 {
                     accion: 'bloqueo',
@@ -186,13 +191,13 @@ export const oponentes = [
         nombre: "Lican",
         imgagen: 'lican.jpg',
         vida: 120,
-        nivel: 4,
+        nivel: 5,
         comportamiento: function() {      
             const acciones = [
                 {
                     accion: 'ataque',
-                    valor: 20,
-                    chance: 2
+                    valor: 30,
+                    chance: 3
                 },
                 {
                     accion: 'esquive',
@@ -208,23 +213,23 @@ export const oponentes = [
     {
         nombre: "Golem",
         imgagen: 'golem.jpg',
-        vida: 140,
+        vida: 160,
         nivel: 5,
         comportamiento: function() {          
             const acciones = [
                 {
                     accion: 'ataque',
-                    valor: 35,
+                    valor: 25,
                     chance: 3
                 },
                 {
                     accion: 'bloqueo',
-                    valor: 15,
-                    chance: 2
+                    valor: 30,
+                    chance: 1
                 },
                 {
                     accion: 'espera',
-                    chance: 1
+                    chance: 0
                 }
             ]
 

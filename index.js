@@ -92,6 +92,13 @@ const nombreProta = document.getElementById("nombre-protagonista")
 //-----------------     -----------     ------
 
 function cargarPersonaje() {             //------------ CARGAR PERSONAJE
+    
+    if (protagonista.nivel == 1) {
+        for (let i = 0; i < 5; i++) { // niveles q qiera
+            protagonista.levelUp() //------------------------ TEST NIVEL
+        }
+    }
+
     nombreProta.innerHTML = protagonista.nombre
     mensajeNivel.innerHTML = "Nivel " + protagonista.nivel
 
@@ -128,7 +135,7 @@ let enemigoVidaTotal
 
 function cargarEnemigo() {    //-------------------  ELECCION OPONENTE----------------
     eleccionOponente = elegirOponente()
-    // eleccionOponente = 3 //-------------- PARA TEST
+    eleccionOponente = 4 //-------------- PARA TEST
 
     const enemigoNombre = oponentes[eleccionOponente].nombre
     const enemigoImagen = oponentes[eleccionOponente].imgagen
@@ -464,7 +471,7 @@ function victoria(mensajeRecord) {
     if (modoJuego == 'aventura') {
         //----      -------     ------- PRUEBA NIVEL
         let expNecesaria = 2
-        combateExp++
+        // combateExp++ // ---------------------------------------------- TEST NIVEL
     
         if (combateExp ==  protagonista.nivel * expNecesaria) {
             protagonista.levelUp()  //---------- Nuevo levelup en objeto prota
@@ -496,7 +503,7 @@ function derrota(mensajeRecord) {
     mensaje.innerHTML='Fuiste vencido ...'
 
     combateExp = 0 //------------------------- PRUEBA NIVEL
-    protagonista.derrota() // --- nuevo reinicio con objt Prota
+    // protagonista.derrota() // --- nuevo reinicio con objt Prota
 
     invicto = 0
     mensajeInvicto.innerHTML = `Perdiste tu racha`+mensajeRecord

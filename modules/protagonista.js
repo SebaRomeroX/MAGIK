@@ -1,7 +1,7 @@
 export const protagonista = {
     nombre: "Magik",
     nivel: 1,
-    vida: 100,
+    vida: 80,
     ataque: 1,
     habilidades: [
         { 
