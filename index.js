@@ -80,7 +80,6 @@ import { protagonista } from "./modules/protagonista.js";
 
 let invicto = 0
 let record = 0
-let nivelJugador = 1
 
 if (localStorage.getItem("record")) {
     record = localStorage.getItem("record")
@@ -161,19 +160,12 @@ function elegirOponente() {
         do {
             eleccionOponente = aleatorio(oponentes.length)
             
-        } while (oponentes[eleccionOponente].nivel != nivelJugador);
+        } while (oponentes[eleccionOponente].nivel > protagonista.nivel);
     }
+    console.log("oponente: "+ eleccionOponente);
+    
     return eleccionOponente
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -455,16 +447,6 @@ function finCombate() {
 
     botonContinuar.addEventListener('click', cargarPersonaje)
 
-    if (modoJuego == 'aventura') {
-        if (nivelJugador == 1) {
-            mensajeRecord = '. Necesitas una racha de 3 para avanzar'
-        }else if(nivelJugador == 2){
-            mensajeRecord = '. Necesitas una racha de 2 para avanzar'
-        }else if(nivelJugador == 3){
-            mensajeRecord = '. Necesitas vencer solo a 1 para ganar'
-        }
-    } 
-
 
     if (vidaEnemigoActual<=0) {
         victoria(mensajeRecord)
@@ -477,65 +459,33 @@ function finCombate() {
 //-----------------------
 
 function victoria(mensajeRecord) {
-    console.log("victoria");
-
-    let imagen = document.querySelector('.enemigo')
-    imagen.classList.add('difuminado')
+    console.log("victoria");    
     
+    if (modoJuego == 'aventura') {
+        //----      -------     ------- PRUEBA NIVEL
+        let expNecesaria = 2
+        combateExp++
     
-    //----      -------     ------- PRUEBA NIVEL
-    let expNecesaria = 2
-    combateExp++
-
-    if (combateExp ==  protagonista.nivel * expNecesaria) {
-        protagonista.levelUp()  //---------- Nuevo levelup en objeto prota
-
-        combateExp = 0
+        if (combateExp ==  protagonista.nivel * expNecesaria) {
+            protagonista.levelUp()  //---------- Nuevo levelup en objeto prota
+    
+            combateExp = 0
+        }
     }
-    console.log("nivel "+ protagonista.nivel)
-    console.log("exp "+ combateExp)
-    console.log("atq "+ protagonista.ataque)
-    console.log("vida "+ protagonista.vida)
 
-    //----------------
-
-    mensaje.innerHTML='Derrotaste a tu oponente!'
-
-    botonContinuar.style.display = 'block'
-    
     invicto ++
     
+    mensaje.innerHTML='Derrotaste a tu oponente!'
     mensajeInvicto.innerHTML = `Levas ${invicto} combates ganados`+mensajeRecord
     mensajeInvicto.style.display = 'block'
 
-    if (modoJuego == 'aventura') {
-        if (nivelJugador == 1 && invicto == 3) {
-            nivelJugador ++
-            invicto = 0
-            mensajeInvicto.innerHTML = 'Pasas al siguiente nivel'
-            mensajeRecord = ''
-            
-        }else if (nivelJugador == 2 && invicto == 2) {
-            nivelJugador ++
-            invicto = 0
-            mensajeInvicto.innerHTML = 'Pasas al siguiente nivel'
-            mensajeRecord = ''
-            
-        }else if (nivelJugador == 3 && invicto == 1) {
-            mensajeInvicto.innerHTML = 'Ganaste !!'
-            mensajeRecord = ''
-
-            botonContinuar.style.display = 'none'
-        }
-    }
 
     if (invicto > record) {
         record = invicto
         localStorage.setItem("record", record)
     }
 
-    mensajeJugador.style.display = 'none'
-    mensajeEnemigo.style.display = 'none'
+    nuevo_combate(".enemigo")
 }
 
 //--------------------
@@ -548,22 +498,28 @@ function derrota(mensajeRecord) {
     combateExp = 0 //------------------------- PRUEBA NIVEL
     protagonista.derrota() // --- nuevo reinicio con objt Prota
 
-    console.log("nivel "+ protagonista.nivel)
-    console.log("exp "+ combateExp)
-    console.log("atq "+ protagonista.ataque)
-    console.log("vida "+ protagonista.vida)
-    
     invicto = 0
     mensajeInvicto.innerHTML = `Perdiste tu racha`+mensajeRecord
     mensajeInvicto.style.display = 'block'
 
-    let imagen = document.querySelector('.jugador')
-    imagen.classList.add('difuminado')
-    
+    nuevo_combate(".jugador")
+}
+
+function nuevo_combate(derrotado){
+    //-------------------------------------------STATS
+    console.log("nivel "+ protagonista.nivel)
+    console.log("exp "+ combateExp)
+    console.log("atq "+ protagonista.ataque)
+    console.log("vida "+ protagonista.vida)
+
     mensajeJugador.style.display = 'none'
     mensajeEnemigo.style.display = 'none'
     botonContinuar.style.display = 'block'
+
+    let imagen = document.querySelector(derrotado)
+    imagen.classList.add('difuminado')
 }
+
 
 
 function aleatorio(numero) {
