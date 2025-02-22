@@ -93,11 +93,11 @@ const nombreProta = document.getElementById("nombre-protagonista")
 
 function cargarPersonaje() {             //------------ CARGAR PERSONAJE
     
-    if (protagonista.nivel == 1) {
-        for (let i = 0; i < 5; i++) { // niveles q qiera
-            protagonista.levelUp() //------------------------ TEST NIVEL
-        }
-    }
+    // if (protagonista.nivel == 1) {
+    //     for (let i = 0; i < 5; i++) { // niveles q qiera
+    //         protagonista.levelUp() //------------------------ TEST NIVEL
+    //     }
+    // }
 
     nombreProta.innerHTML = protagonista.nombre
     mensajeNivel.innerHTML = "Nivel " + protagonista.nivel
@@ -135,7 +135,7 @@ let enemigoVidaTotal
 
 function cargarEnemigo() {    //-------------------  ELECCION OPONENTE----------------
     eleccionOponente = elegirOponente()
-    eleccionOponente = 4 //-------------- PARA TEST
+    // eleccionOponente = 4 //-------------- PARA TEST
 
     const enemigoNombre = oponentes[eleccionOponente].nombre
     const enemigoImagen = oponentes[eleccionOponente].imgagen
