@@ -471,7 +471,7 @@ function victoria(mensajeRecord) {
     if (modoJuego == 'aventura') {
         //----      -------     ------- PRUEBA NIVEL
         let expNecesaria = 2
-        // combateExp++ // ---------------------------------------------- TEST NIVEL
+        combateExp++ // ---------------------------------------------- TEST NIVEL
     
         if (combateExp ==  protagonista.nivel * expNecesaria) {
             protagonista.levelUp()  //---------- Nuevo levelup en objeto prota
