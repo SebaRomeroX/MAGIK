@@ -503,7 +503,7 @@ function derrota(mensajeRecord) {
     mensaje.innerHTML='Fuiste vencido ...'
 
     combateExp = 0 //------------------------- PRUEBA NIVEL
-    // protagonista.derrota() // --- nuevo reinicio con objt Prota
+    protagonista.derrota() // --- nuevo reinicio con objt Prota
 
     invicto = 0
     mensajeInvicto.innerHTML = `Perdiste tu racha`+mensajeRecord
